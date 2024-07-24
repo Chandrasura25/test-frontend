@@ -32,7 +32,6 @@ const Transactions = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setCurrentPage(1);
   };
-
   const totalPages = Math.ceil(transactions.length / rowsPerPage);
   const currentData = transactions.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
