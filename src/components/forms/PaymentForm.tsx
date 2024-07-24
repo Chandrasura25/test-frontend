@@ -28,34 +28,31 @@ export default function PaymentForm() {
     },
   });
 
-  const onSuccess = (transaction) => {
-    console.log(transaction);
-    navigate(`/callback-url?reference=${transaction.reference}`);
-  };
-
-  const onLoad = (response) => {
-    console.log("onLoad: ", response);
-  };
-
-  const onCancel = () => {
-    console.log("onCancel");
-  };
-
-  const onError = (error) => {
-    console.log("Error: ", error.message);
-  };
-
   const onSubmit = async (values) => {
     setLoading(true);
     try {
       const response = await axiosInstance.post('/initialize-payment', values);
       const access_code = response.data.data?.access_code;
-      const popup = new PaystackPop();
-      popup.resumeTransaction(access_code,
-        {callback: (response) => {
-        console.log(response)}
+      const paystackInstance = new PaystackPop();
+      const onSuccess = (transaction) => {
+        navigate(`/callback-url?reference=${transaction.reference}`);
+      };
+
+      paystackInstance.newTransaction({
+        key: 'pk_test_966d5323c1e0eb56db5b4cf73d646648449b28a9',
+        email: values.email,
+        amount: values.amount * 100,
+        metadata: {
+          domain: values.domain
+        },
+        onSuccess,
+        onCancel: () => {
+          toast.info("Transaction was cancelled");
+        },
+        onError: (error) => {
+          toast.error("Error: ", error.message);
+        }
       });
-      navigate('/transactions')
     } catch (err) {
       console.error(err);
       toast.error("Payment initialization failed");
@@ -72,18 +69,18 @@ export default function PaymentForm() {
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem className="flex flex-col gap-3 w-full">
-                <FormLabel className="text-base-semibold text-dark-2">
+              <FormItem className="flex flex-col gap-1 w-full">
+                <FormLabel className="text-base-semibold text-white">
                   Email Address
                 </FormLabel>
                 <FormControl>
                   <Input
                     {...field}
                     type="email"
-                    className="no-focus focus:outline-none focus:ring-0 focus:border-[#41AA5E] border border-dark-4 bg-dark-3 text-light-1"
+                    className="no-focus focus:outline-none focus:ring-0 border-none outline-none text-light-1"
                   />
                 </FormControl>
-                <FormMessage className="text-subtle-semibold text-[#41AA5E]" />
+                <FormMessage className="text-subtle-semibold text-red-500" />
               </FormItem>
             )}
           />
@@ -91,18 +88,18 @@ export default function PaymentForm() {
             control={form.control}
             name="amount"
             render={({ field }) => (
-              <FormItem className="flex flex-col gap-3 w-full">
-                <FormLabel className="text-base-semibold text-dark-2">
+              <FormItem className="flex flex-col gap-1 w-full">
+                <FormLabel className="text-base-semibold text-white">
                   Amount
                 </FormLabel>
                 <FormControl>
                   <Input
                     {...field}
                     type="number"
-                    className="no-focus focus:outline-none focus:ring-0 focus:border-[#41AA5E] border border-dark-4 bg-dark-3 text-light-1"
+                    className="no-focus focus:outline-none focus:ring-0 border-none outline-none text-light-1"
                   />
                 </FormControl>
-                <FormMessage className="text-subtle-semibold text-[#41AA5E]" />
+                <FormMessage className="text-subtle-semibold text-red-500" />
               </FormItem>
             )}
           />
@@ -110,24 +107,24 @@ export default function PaymentForm() {
             control={form.control}
             name="domain"
             render={({ field }) => (
-              <FormItem className="flex flex-col gap-3 w-full">
-                <FormLabel className="text-base-semibold text-dark-2">
+              <FormItem className="flex flex-col gap-1 w-full">
+                <FormLabel className="text-base-semibold text-white">
                   Domain
                 </FormLabel>
                 <FormControl>
                   <Input
                     {...field}
                     type="text"
-                    className="no-focus focus:outline-none focus:ring-0 focus:border-[#41AA5E] border border-dark-4 bg-dark-3 text-light-1"
+                    className="no-focus focus:outline-none focus:ring-0 border-none outline-none text-light-1"
                   />
                 </FormControl>
-                <FormMessage className="text-subtle-semibold text-[#41AA5E]" />
+                <FormMessage className="text-subtle-semibold text-red-500" />
               </FormItem>
             )}
           />
           <button
             type="submit"
-            className="py-2.5 bg-[#41AA5E] text-white hover:bg-transparent hover:border hover:border-[#41AA5E]"
+            className="py-2.5 shadow-lg text-[#fff38e] rounded hover:text-white transition hover:bg-[#095a55] border border-[#fff38e]"
             disabled={loading}
           >
             {loading ? "Processing..." : "Pay Now"}
