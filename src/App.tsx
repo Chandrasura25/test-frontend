@@ -5,7 +5,7 @@ import Transactions from '@/pages/Transactions'
 import Navbar from '@/components/shared/Navbar'
 function App() {
   return (
-    <div className="bg h-screen flex justify-center items-center">
+    <div className="bg flex justify-center items-center">
       <Navbar />
       <Routes>
         <Route path='/' element={<Payment />} />
