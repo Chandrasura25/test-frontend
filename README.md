@@ -1,30 +1,89 @@
-# React + TypeScript + Vite
+# React Payment Form Documentation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Table of Contents
 
-Currently, two official plugins are available:
+1. [Introduction](#introduction)
+2. [Requirements](#requirements)
+3. [Installation](#installation)
+4. [Environment Configuration](#environment-configuration)
+5. [Running the Application](#running-the-application)
+6. [Usage](#usage)
+7. [Components](#components)
+8. [API Integration](#api-integration)
+9. [License](#license)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Introduction
 
-## Expanding the ESLint configuration
+This is a React application that provides a payment form for handling transactions using Paystack. It includes form validation using Zod and integrates Paystack's inline payment solution.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Requirements
 
-- Configure the top-level `parserOptions` property like this:
+- Node.js 14 or higher
+- npm or yarn
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+## Installation
+
+Follow these steps to set up the project locally:
+
+1. **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/Chandrasura25/test-frontend.git
+    cd test-frontend
+    ```
+
+2. **Install dependencies:**
+
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+
+## Environment Configuration
+
+Create a `.env` file in the root directory and configure your environment variables:
+
+```dotenv
+VITE_SERVER_URL=http://localhost:8000/api
+VITE_PAYSTACK_PUBLIC_KEY=your_paystack_public_key
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Running the Application
+
+Run the following command to start the local development server:
+
+```bash
+npm start
+# or
+yarn start
+```
+
+Your application will be accessible at `http://localhost:3000`.
+
+## Usage
+
+### PaymentForm Component
+
+The `PaymentForm` component is the main component for handling payments. It includes form validation and integrates Paystack's inline payment solution.
+
+### Components
+
+#### PaymentForm
+
+- **Description:** This component renders the payment form and handles the payment process.
+- **Dependencies:**
+  - `react-hook-form` for form handling
+  - `@hookform/resolvers/zod` for Zod validation
+  - `@paystack/inline-js` for Paystack integration
+  - `axios` for API requests
+  - `react-toastify` for notifications
+  - `react-router-dom` for navigation
+
+## API Integration
+
+The frontend interacts with a Laravel backend to handle payment transactions. Ensure that the backend is set up and running as per the [Laravel API Documentation](../laravel/README.md).
+
+## License
+
+This project is licensed under the MIT License.
