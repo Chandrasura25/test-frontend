@@ -27,7 +27,7 @@ export default function PaymentForm() {
       domain: ''
     },
   });
-
+const paystackKey: string = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
   const onSubmit = async (values) => {
     setLoading(true);
     try {
@@ -39,7 +39,7 @@ export default function PaymentForm() {
       };
 
       paystackInstance.newTransaction({
-        key: 'pk_test_966d5323c1e0eb56db5b4cf73d646648449b28a9',
+        key: paystackKey,
         email: values.email,
         amount: values.amount * 100,
         metadata: {
