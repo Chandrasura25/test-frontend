@@ -43,7 +43,9 @@ const paystackKey: string = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
         email: values.email,
         amount: values.amount * 100,
         metadata: {
-          domain: values.domain
+          display_name: "Domain",
+          value: values.domain,
+          variable_name: "domain",
         },
         onSuccess,
         onCancel: () => {
