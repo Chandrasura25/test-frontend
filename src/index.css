@@ -8,15 +8,6 @@
   min-height: 100vh;
   background: #095a55;
 }
-.bg::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 50%;
-  height: 100vh;
-  background: #fff38e;
-}
 .form{
 	background: #095a55;
 }
