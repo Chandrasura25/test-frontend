@@ -12,7 +12,7 @@ export default function Navbar() {
 				className="fixed top-0 w-full py-2 shadow-lg">
 				<div className='flex justify-between items-center px-8 py-3'>
 					<Link to='/' className='relative flex justify-center items-center gap-2'>
-						<p className='font-semibold text-lg uppercase text-white'>Test</p>
+						<p className='font-semibold text-lg uppercase text-white'>Aluko's Payment</p>
 					</Link>
 					<div >
 						<ul className='flex gap-4 text-white'>
