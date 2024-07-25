@@ -31,8 +31,8 @@ const paystackKey: string = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
   const onSubmit = async (values) => {
     setLoading(true);
     try {
-      const response = await axiosInstance.post('/initialize-payment', values);
-      const access_code = response.data.data?.access_code;
+      // const response = await axiosInstance.post('/initialize-payment', values);
+      // const access_code = response.data.data?.access_code;
       const paystackInstance = new PaystackPop();
       const onSuccess = (transaction) => {
         navigate(`/callback-url?reference=${transaction.reference}`);
@@ -43,9 +43,13 @@ const paystackKey: string = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
         email: values.email,
         amount: values.amount * 100,
         metadata: {
-          display_name: "Domain",
-          value: values.domain,
-          variable_name: "domain",
+        custom_fields: [
+          {
+            display_name: "Domain",
+            variable_name: "domain",
+            value: values.domain,
+          },
+        ],
         },
         onSuccess,
         onCancel: () => {
